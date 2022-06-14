@@ -6,6 +6,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [arrival, setArrival] = useState("");
   const [arrivalMin, setArrivalMin] = useState("");
+  const [busNo, setbusNo] = useState("");
   const BUSSTOP_URL = "https://arrivelah2.busrouter.sg/?id=83139"
 
   function loadBusStopData() {
@@ -28,6 +29,8 @@ export default function App() {
         const duration_mins = Math.floor(duration_ms/60000);
         setArrivalMin(`${duration_mins} minutes`);
 
+        setbusNo(myBus.no);
+
         setLoading(false);
       });
   }
@@ -44,6 +47,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.busNoTitle}> { busNo } </Text>
       <Text style={styles.title}> Bus arrival time: </Text>
       <Text style={styles.arrivalTime}> {loading ? <ActivityIndicator color={'red'}/> : arrival }</Text>
       <Text style={styles.arrivalMin}> {loading ? <ActivityIndicator color={'red'}/> : arrivalMin }</Text>
@@ -84,11 +88,17 @@ const styles = StyleSheet.create({
   arrivalTime: {
     fontSize: 20,
     marginTop: 20,
-    marginBottom: 10,
   },
   arrivalMin: {
-    fontSize: 50,
+    fontSize: 30,
     fontWeight: "400",
     marginVertical: 20,
+    color: "tomato",
+  },
+  busNoTitle: {
+    fontSize: 50,
+    fontWeight: "800",
+    marginVertical: 10,
+    color: "tomato",
   }
 });
