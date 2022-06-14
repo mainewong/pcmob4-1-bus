@@ -5,6 +5,7 @@ import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator, } from 're
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [arrival, setArrival] = useState("");
+  const [arrivalMin, setArrivalMin] = useState("");
   const BUSSTOP_URL = "https://arrivelah2.busrouter.sg/?id=83139"
 
   function loadBusStopData() {
@@ -21,7 +22,12 @@ export default function App() {
         console.log("My Bus");
         console.log(myBus.next.time);
         setArrival(myBus.next.time);
-        setLoading(true);
+
+        const duration_ms = myBus.next.duration_ms;
+        console.log(duration_ms);
+        const duration_mins = Math.floor(duration_ms/60000);
+        setArrivalMin(`${duration_mins} minutes`);
+        setLoading(false);
       });
   }
 
@@ -38,7 +44,8 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}> Bus arrival time: </Text>
-      <Text style={styles.arrivalTime}> {loading ? <ActivityIndicator color={'red'}/> : arrival}</Text>
+      <Text style={styles.arrivalTime}> {loading ? <ActivityIndicator color={'red'}/> : arrival }</Text>
+      <Text style={styles.arrivalMin}> {loading ? <ActivityIndicator color={'red'}/> : arrivalMin }</Text>
       <TouchableOpacity style={styles.button} onPress={() => setLoading(true)}>
         <Text style={styles.buttonText}> Refresh </Text>
       </TouchableOpacity>
@@ -75,6 +82,12 @@ const styles = StyleSheet.create({
   },
   arrivalTime: {
     fontSize: 20,
-    marginVertical: 20,
+    marginTop: 20,
+    marginBottom: 10,
   },
+  arrivalMin: {
+    fontSize: 50,
+    fontWeight: "400",
+    marginVertical: 20,
+  }
 });
