@@ -33,6 +33,10 @@ export default function App() {
 
         setLoading(false);
       });
+
+      function refreshPage() {
+        window.location.reload(false);
+      }
   }
 
   useEffect(() => {
@@ -52,7 +56,7 @@ export default function App() {
       <Text style={styles.arrivalTime}> {loading ? <ActivityIndicator color={'red'}/> : arrival }</Text>
       <Text style={styles.arrivalMin}> {loading ? <ActivityIndicator color={'red'}/> : arrivalMin }</Text>
       <TouchableOpacity style={styles.button} onPress={() => setLoading(true)}>
-        <Text style={styles.buttonText}> Refresh </Text>
+        <Text style={styles.buttonText} onPress={refreshPage}> Refresh </Text>
       </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
