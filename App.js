@@ -27,6 +27,7 @@ export default function App() {
         console.log(duration_ms);
         const duration_mins = Math.floor(duration_ms/60000);
         setArrivalMin(`${duration_mins} minutes`);
+
         setLoading(false);
       });
   }
